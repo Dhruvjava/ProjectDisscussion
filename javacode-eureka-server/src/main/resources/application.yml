@@ -1,0 +1,13 @@
+# Eureka Server Port
+server:
+  port: 8761 # port 8761 is recommanded port number it's not
+              # defined that we have to make this port number only.
+# Eureka Server Configuration
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+# Application Config
+spring:
+  application:
+    name: JAVACODE-EUREKA-SERVER
