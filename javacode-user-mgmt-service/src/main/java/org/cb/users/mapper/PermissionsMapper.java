@@ -33,6 +33,23 @@ public class PermissionsMapper {
         }
     }
 
+    public static Permissions mapToPermissions(PermissionsRs rq, ModelMapper mapper) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing mapToPermissions(rq, mapper)");
+        }
+        try {
+            Permissions permission = mapper.map(rq, Permissions.class);
+            permission.setCreatedBy(rq.getCreatedBy());
+            permission.setCreatedOn(LocalDateTimeUtils.convertStringToLdt(rq.getCreatedOn()));
+            permission.setUpdatedBy(rq.getUpdatedBy());
+            permission.setUpdatedOn(LocalDateTimeUtils.convertStringToLdt(rq.getUpdatedOn()));
+            return permission;
+        } catch (Exception e) {
+            log.error("Exception in mapToPermissions(rq, mapper) -> {}", e);
+            throw e;
+        }
+    }
+
     public static PermissionsRs mapToPermissionsRs(Permissions permissions, ModelMapper mapper) {
         if (log.isDebugEnabled()) {
             log.debug("Executing mapToPermissions(permissions, mapper) -> ");
@@ -54,5 +71,19 @@ public class PermissionsMapper {
         }
     }
 
+    public static Permissions mapToUpdatePermissions(PermissionsRq rq, ModelMapper mapper) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing mapToUpdatePermissions(rq, mapper)");
+        }
+        try {
+            Permissions permission = mapper.map(rq, Permissions.class);
+            permission.setUpdatedBy("ADMIN");
+            permission.setUpdatedOn(LocalDateTime.now());
+            return permission;
+        } catch (Exception e) {
+            log.error("Exception in mapToUpdatePermissions(rq, mapper) -> {}", e);
+            throw e;
+        }
+    }
 }
 
