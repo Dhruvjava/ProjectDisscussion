@@ -14,4 +14,10 @@ public class ErrorCodes {
 
     public static final String EC_PERMISSION_NOT_FOUND = "EC_PERMISSION_NOT_FOUND";
 
+    public static final String EC_ROLES_PERMISSION_REQUIRED = "EC_ROLES_PERMISSION_REQUIRED";
+
+    public static final String EC_INVALID_ROLES_PERMISSION = "EC_INVALID_ROLES_PERMISSION";
+
+    public static final String EC_ROLE_ALREADY_EXISTS = "EC_ROLE_ALREADY_EXISTS";
+
 }
