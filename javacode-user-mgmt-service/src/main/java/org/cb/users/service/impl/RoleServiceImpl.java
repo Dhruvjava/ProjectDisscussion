@@ -5,8 +5,11 @@ import org.cb.Messages;
 import org.cb.base.data.rs.BaseDataRs;
 import org.cb.base.rs.ErrorRs;
 import org.cb.exception.InvalidRoleRqException;
+import org.cb.exception.RolesNotFoundException;
+import org.cb.handler.RolesHandler;
 import org.cb.users.constants.ErrorCodes;
 import org.cb.users.constants.MessageCodes;
+import org.cb.users.datars.RolesDataRSs;
 import org.cb.users.datars.RolesDataRs;
 import org.cb.users.entity.Roles;
 import org.cb.users.helper.RoleHelper;
@@ -20,6 +23,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,21 +69,94 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public BaseDataRs updateRole(RoleRq rq) {
-        return null;
+        if (log.isDebugEnabled()) {
+            log.debug("Executing updateRole(rq) -> ");
+        }
+        try {
+            List<ErrorRs> errors = RoleHelper.validateUpdateRole(rq, messages);
+            Optional.ofNullable(errors).filter(err -> Utils.isNotEmpty(errors)).ifPresent(error -> {
+                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_INVALID_INPUT);
+                throw new InvalidRoleRqException(ErrorCodes.EC_INVALID_INPUT, errorMessage, error);
+            });
+            Roles isExists = repo.findById(rq.getId()).orElse(null);
+//            boolean isExists = repo.existsById(rq.getId());
+            Optional.ofNullable(isExists).filter(exists -> isExists == null).ifPresent(is -> {
+                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
+                throw new InvalidRoleRqException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
+            });
+            Roles roles = RolesMapper.mapToUpdateRoles(rq, mapper);
+            roles.setCreatedBy(isExists.getCreatedBy());
+            roles.setCreatedOn(isExists.getCreatedOn());
+            repo.save(roles);
+            RolesRs rs = RolesMapper.mapToRolesRS(roles, mapper);
+            String message = messages.getMessageProperty(MessageCodes.MC_UPDATED_SUCCESSFULLY);
+            return new RolesDataRs(message, rs);
+
+        } catch (Exception e) {
+            log.error("Exception in updateRole(rq) -> {}", e);
+            throw e;
+        }
     }
 
     @Override
     public BaseDataRs findOneRole(Integer id) {
-        return null;
+        if (log.isDebugEnabled()) {
+            log.debug("Executing findRole(int id) ->");
+        }
+        try {
+            Roles roles = repo.findById(id)
+                    .orElseThrow(() -> {
+                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
+                        log.info(errorMessage);
+                        return new RolesNotFoundException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);
+                    });
+            RolesRs rs = RolesMapper.mapToRolesRS(roles, mapper);
+            String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFULLY);
+            return new RolesDataRs(message, rs);
+        } catch (Exception e) {
+            log.error("Exception in findRole(int id) -> {0}", e);
+            throw e;
+        }
     }
 
     @Override
     public BaseDataRs deleteRole(Integer id) {
-        return null;
+        if (log.isDebugEnabled()) {
+            log.debug("Executing deleteRole(int id) ->");
+        }
+        try {
+            Optional.of(repo.existsById(id))
+                    .filter(exists -> exists)
+                    .ifPresentOrElse(exist -> repo.deleteById(id), () -> {
+                        String errorMessage = messages.getMessageProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
+                        log.warn(errorMessage);
+                        throw new RolesNotFoundException(MessageCodes.MC_NO_RECORD_FOUND, errorMessage);
+                    });
+            String message = messages.getMessageProperty(MessageCodes.MC_DELETED_SUCCESSFULLY);
+            return new RolesDataRs(message);
+        } catch (Exception e) {
+            log.error("Exception in deleteRole(int id) -> {0}", e);
+            throw e;
+        }
     }
 
     @Override
     public BaseDataRs findAllRoles() {
-        return null;
+        if (log.isDebugEnabled()) {
+            log.debug("Executing findAllRole() ->");
+        }
+        try {
+            List<Roles> roles = Optional.of(repo.findAll()).filter(Utils::isNotEmpty).orElseThrow(() -> {
+                String errorMessage = messages.getMessageProperty(MessageCodes.MC_NO_RECORD_FOUND);
+                log.info(errorMessage);
+                return new RolesNotFoundException(MessageCodes.MC_NO_RECORD_FOUND, errorMessage);
+            });
+            List<RolesRs> rs = roles.stream().map(role -> RolesMapper.mapToRolesRS(role, mapper)).toList();
+            String message = messages.getMessageProperty(MessageCodes.MC_RETRIEVED_SUCCESSFULLY);
+            return new RolesDataRSs(message, rs);
+        } catch (Exception e) {
+            log.error("Exception in findAllRole() -> {0}", e);
+            throw e;
+        }
     }
 }

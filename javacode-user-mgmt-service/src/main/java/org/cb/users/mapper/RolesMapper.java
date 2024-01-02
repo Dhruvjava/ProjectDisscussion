@@ -60,4 +60,27 @@ public class RolesMapper {
             throw e;
         }
     }
+
+    public static Roles mapToUpdateRoles(RoleRq rq, ModelMapper mapper) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing mapToUpdateRoles( rq, mapper) -> ");
+        }
+        try {
+            Roles roles = mapper.map(rq, Roles.class);
+            roles.setUpdatedBy("ADMIN");
+            roles.setUpdatedOn(LocalDateTime.now());
+            List<RoleToPermission> roleToPermissions = new ArrayList<>();
+            rq.getPermissions().forEach(permission -> {
+                RoleToPermission rtp = new RoleToPermission();
+                rtp.setRoles(roles);
+                rtp.setPermissions(PermissionsMapper.mapToPermissions(permission, mapper));
+                roleToPermissions.add(rtp);
+            });
+            roles.setPermissions(roleToPermissions);
+            return roles;
+        } catch (Exception e) {
+            log.error("Exception in mapToUpdateRoles( rq, mapper) -> {}", e);
+            throw e;
+        }
+    }
 }

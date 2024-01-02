@@ -20,4 +20,8 @@ public class ErrorCodes {
 
     public static final String EC_ROLE_ALREADY_EXISTS = "EC_ROLE_ALREADY_EXISTS";
 
+    public static final String EC_ROLE_NOT_FOUND = "EC_ROLE_NOT_FOUND";
+
+    public static final String EC_REQUIRED_ROLE_ID = "EC_REQUIRED_ROLE_ID";
+
 }

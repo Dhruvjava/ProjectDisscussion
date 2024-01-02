@@ -47,4 +47,22 @@ public class RoleHelper {
             throw e;
         }
     }
+
+    public static List<ErrorRs> validateUpdateRole(RoleRq rq, Messages messages) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing validateUpdateRole(rq, messages)");
+        }
+        try {
+            List<ErrorRs> errors = new ArrayList<>();
+            if (rq.getId() == null || rq.getId() == 0) {
+                log.error(ErrorCodes.EC_REQUIRED_ROLE_ID);
+                errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_ROLE_ID, messages));
+            }
+            errors.addAll(validateCreateRole(rq, messages));
+            return errors;
+        } catch (Exception e) {
+            log.error("Exception in validateUpdateRole(rq, messages) -> {}", e);
+            throw e;
+        }
+    }
 }

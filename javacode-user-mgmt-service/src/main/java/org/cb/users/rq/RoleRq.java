@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.cb.base.rq.BaseRq;
 import org.cb.users.rs.PermissionsRs;
 
 import java.util.List;
@@ -12,9 +13,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleRq {
-
-    private Integer id;
+public class RoleRq extends BaseRq {
 
     private String code;
 
