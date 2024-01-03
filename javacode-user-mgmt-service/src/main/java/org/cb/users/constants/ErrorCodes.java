@@ -24,4 +24,6 @@ public class ErrorCodes {
 
     public static final String EC_REQUIRED_ROLE_ID = "EC_REQUIRED_ROLE_ID";
 
+    public static final String EC_REQUIRED_USERS_FIRST_NAME = "EC_REQUIRED_USERS_FIRST_NAME";
+
 }

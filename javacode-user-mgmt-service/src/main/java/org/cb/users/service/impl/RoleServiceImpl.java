@@ -6,7 +6,6 @@ import org.cb.base.data.rs.BaseDataRs;
 import org.cb.base.rs.ErrorRs;
 import org.cb.exception.InvalidRoleRqException;
 import org.cb.exception.RolesNotFoundException;
-import org.cb.handler.RolesHandler;
 import org.cb.users.constants.ErrorCodes;
 import org.cb.users.constants.MessageCodes;
 import org.cb.users.datars.RolesDataRSs;
@@ -23,7 +22,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,7 +77,6 @@ public class RoleServiceImpl implements IRoleService {
                 throw new InvalidRoleRqException(ErrorCodes.EC_INVALID_INPUT, errorMessage, error);
             });
             Roles isExists = repo.findById(rq.getId()).orElse(null);
-//            boolean isExists = repo.existsById(rq.getId());
             Optional.ofNullable(isExists).filter(exists -> isExists == null).ifPresent(is -> {
                 String errorMessage = messages.getErrorProperty(ErrorCodes.EC_ROLE_NOT_FOUND);
                 throw new InvalidRoleRqException(ErrorCodes.EC_ROLE_NOT_FOUND, errorMessage);

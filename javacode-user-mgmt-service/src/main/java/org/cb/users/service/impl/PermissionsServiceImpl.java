@@ -1,6 +1,5 @@
 package org.cb.users.service.impl;
 
-import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.extern.slf4j.Slf4j;
 import org.cb.Messages;
 import org.cb.base.data.rs.BaseDataRs;
@@ -24,10 +23,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-import static org.cb.users.mapper.PermissionsMapper.*;
 
 @Service
 @Slf4j
