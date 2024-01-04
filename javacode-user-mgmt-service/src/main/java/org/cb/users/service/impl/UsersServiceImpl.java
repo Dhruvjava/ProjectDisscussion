@@ -4,16 +4,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.cb.Messages;
 import org.cb.base.data.rs.BaseDataRs;
 import org.cb.base.rs.ErrorRs;
+import org.cb.exception.InvalidUsersRqException;
+import org.cb.users.constants.ErrorCodes;
 import org.cb.users.entity.Users;
 import org.cb.users.helper.UsersHelper;
+import org.cb.users.repo.RoleRepo;
 import org.cb.users.repo.UsersRepo;
 import org.cb.users.rq.UsersRq;
 import org.cb.users.service.IUsersService;
+import org.cb.util.Utils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -23,6 +28,9 @@ public class UsersServiceImpl implements IUsersService {
     private UsersRepo repo;
 
     @Autowired
+    private RoleRepo roleRepo;
+
+    @Autowired
     private Messages messages;
 
     @Autowired
@@ -30,13 +38,17 @@ public class UsersServiceImpl implements IUsersService {
 
     @Override
     public BaseDataRs saveUsers(UsersRq rq) {
-        if (log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Executing saveUsers(rq) -> ");
         }
-        try{
+        try {
             List<ErrorRs> errors = UsersHelper.validateSaveUsers(rq, messages);
+            Optional.ofNullable(errors).filter(Utils::isNotEmpty).ifPresent(error -> {
+                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_INVALID_INPUT);
+                throw new InvalidUsersRqException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
+            });
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception in saveUsers(rq) -> {}", e);
             throw e;
         }

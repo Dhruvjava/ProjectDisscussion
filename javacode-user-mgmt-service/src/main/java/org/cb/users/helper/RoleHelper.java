@@ -23,12 +23,12 @@ public class RoleHelper {
         try {
             List<ErrorRs> errors = new ArrayList<>();
             if (Utils.isEmpty(rq.getCode())) {
-                log.error(ErrorCodes.EC_REQUIRED_PERMISSION_CODE);
-                errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_PERMISSION_CODE, messages));
+                log.error(ErrorCodes.EC_REQUIRED_ROLE_CODE);
+                errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_ROLE_CODE, messages));
             }
             if (Utils.isEmpty(rq.getName())) {
-                log.error(ErrorCodes.EC_REQUIRED_PERMISSION_NAME);
-                errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_PERMISSION_NAME, messages));
+                log.error(ErrorCodes.EC_REQUIRED_ROLE_NAME);
+                errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_ROLE_NAME, messages));
             }
             if (Utils.isEmpty(rq.getPermissions())) {
                 log.error(ErrorCodes.EC_ROLES_PERMISSION_REQUIRED);

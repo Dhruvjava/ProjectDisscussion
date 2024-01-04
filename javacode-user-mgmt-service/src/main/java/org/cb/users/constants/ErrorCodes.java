@@ -6,9 +6,13 @@ public class ErrorCodes {
 
     public static final String EC_REQUIRED_PERMISSION_CODE = "EC_REQUIRED_PERMISSION_CODE";
 
+    public static final String EC_REQUIRED_ROLE_CODE = "EC_REQUIRED_ROLE_CODE";
+
     public static final String EC_REQUIRED_PERMISSION_ID = "EC_REQUIRED_PERMISSION_ID";
 
     public static final String EC_REQUIRED_PERMISSION_NAME = "EC_REQUIRED_PERMISSION_NAME";
+
+    public static final String EC_REQUIRED_ROLE_NAME = "EC_REQUIRED_ROLE_NAME";
 
     public static final String EC_PERMISSION_ALREADY_EXISTS = "EC_PERMISSION_ALREADY_EXISTS";
 
@@ -25,5 +29,21 @@ public class ErrorCodes {
     public static final String EC_REQUIRED_ROLE_ID = "EC_REQUIRED_ROLE_ID";
 
     public static final String EC_REQUIRED_USERS_FIRST_NAME = "EC_REQUIRED_USERS_FIRST_NAME";
+
+    public static final String EC_INVALID_USERS_EMAIL = "EC_INVALID_USERS_EMAIL";
+
+    public static final String EC_REQUIRED_USERS_LAST_NAME = "EC_REQUIRED_USERS_LAST_NAME";
+
+    public static final String EC_REQUIRED_USERS_USERNAME = "EC_REQUIRED_USERS_USERNAME";
+
+    public static final String EC_REQUIRED_USERS_EMAIL = "EC_REQUIRED_USERS_EMAIL";
+
+    public static final String EC_REQUIRED_USERS_MOBILE = "EC_REQUIRED_USERS_MOBILE";
+
+    public static final String EC_INVALID_USERS_MOBILE = "EC_INVALID_USERS_MOBILE";
+
+    public static final String EC_REQUIRED_USERS_ADDRESS = "EC_REQUIRED_USERS_ADDRESS";
+
+    public static final String EC_REQUIRED_USERS_ROLES = "EC_REQUIRED_USERS_ROLES";
 
 }

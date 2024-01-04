@@ -5,9 +5,15 @@ import org.cb.Messages;
 import org.cb.base.rs.ErrorRs;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 public class Utils {
+
+    private static final Pattern EMAIL_PATTERN_REGIX = Pattern.compile("^([A-Za-z0-9_.-]+)@([\\da-z\\.-]+)\\.([a-z]{2,})$");
+
+    private static final Pattern MOBILE_PATTERN_REGIX = Pattern.compile("^(\\+\\d{1,3}( )?)?\\d{10}$");
 
     public static boolean isEmpty(final String value){
         if (log.isDebugEnabled()){
@@ -72,6 +78,32 @@ public class Utils {
         } catch (Exception e) {
             log.error("Exception in populateErrorRs(List<String>) -> {0}", e);
             return null;
+        }
+    }
+
+    public static boolean isValidEmail(final String email) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing isValidEmail(final String email) ->");
+        }
+        try {
+            Matcher matcher = EMAIL_PATTERN_REGIX.matcher(email);
+            return matcher.matches();
+        } catch (Exception e) {
+            log.error("Exception in isValidEmail(final String email) -> {}", e);
+            throw e;
+        }
+    }
+
+    public static boolean isValidMobile(final String email) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing isValidMobile(final String email) ->");
+        }
+        try {
+            Matcher matcher = MOBILE_PATTERN_REGIX.matcher(email);
+            return matcher.matches();
+        } catch (Exception e) {
+            log.error("Exception in isValidMobile(final String email) -> {}", e);
+            throw e;
         }
     }
 
