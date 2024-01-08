@@ -50,7 +50,7 @@ public class Users implements Serializable {
     @Column(name = "locked")
     private boolean locked = true;
 
-    @OneToMany
-    private List<Roles> roles;
+    @OneToOne
+    private Roles roles;
 
 }

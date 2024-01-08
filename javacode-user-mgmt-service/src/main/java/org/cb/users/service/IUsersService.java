@@ -10,19 +10,19 @@ public interface IUsersService {
 
     public BaseDataRs updateUsers(UsersRq rq);
 
-    public BaseDataRs findOneUsers(UsersRq rq);
+    public BaseDataRs findOneUsers(Integer id);
 
-    public BaseDataRs findAllUsers(UsersRq rq);
+    public BaseDataRs findAllUsers();
 
-    public BaseDataRs deleteUsers(UsersRq rq);
+    public BaseDataRs deleteUsers(Integer id);
 
-    public BaseDataRs findByEmailUsers(UsersRq rq);
+    public BaseDataRs findByEmailUsers(String email);
 
-    public BaseDataRs findByUserName(UsersRq rq);
+    public BaseDataRs findByUserName(String username);
 
-    public BaseDataRs provisioning(Users rq);
+    public void provisioning(Users rq);
 
-    public BaseDataRs deprovisioning(Users rq);
+    public void deprovisioning(Users rq);
 
     public BaseDataRs enableUser(Integer id);
 

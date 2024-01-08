@@ -9,6 +9,7 @@ import org.cb.users.rq.UsersRq;
 import org.cb.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,12 +61,12 @@ public class UsersHelper {
                 log.error(ErrorCodes.EC_REQUIRED_USERS_ADDRESS);
                 errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_USERS_ADDRESS, messages));
             }
-            if (Utils.isEmpty(rq.getRoles())) {
+            if (rq.getRoles() == null) {
                 log.error(ErrorCodes.EC_REQUIRED_USERS_ROLES);
                 errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_USERS_ROLES, messages));
             }
-            if (Utils.isNotEmpty(rq.getRoles())) {
-                errors.addAll(rq.getRoles().stream().map(roleRq -> validateUsersRolesRq(roleRq, messages)).flatMap(List::stream).toList());
+            if (rq.getRoles() != null) {
+                errors.addAll(validateUsersRolesRq(rq.getRoles(), messages));
             }
             return errors;
         } catch (Exception e) {
@@ -96,6 +97,25 @@ public class UsersHelper {
         } catch (Exception e) {
             log.error("Exception in validateUsersRolesRq(rq, messages)");
             throw e;
+        }
+    }
+
+    public static List<ErrorRs> validateUpdateUsers(UsersRq rq, Messages messages) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing validateCreateUsers(UsersRq rq, Messages messages) ->");
+        }
+        try {
+            List<ErrorRs> errors = new ArrayList<>();
+            if (rq.getId() == null) {
+                log.error(ErrorCodes.EC_REQUIRED_USERS_ROLES);
+                errors.add(Utils.populateErrorRs(ErrorCodes.EC_REQUIRED_USERS_ID, messages));
+            }
+            List<ErrorRs> validateErrors = validateSaveUsers(rq, messages);
+            errors.addAll(validateErrors);
+            return errors;
+        } catch (Exception e) {
+            log.error("Exception in validateCreateUsers(UsersRq rq, Messages messages) -> {0}", e);
+            return Collections.emptyList();
         }
     }
 }

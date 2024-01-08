@@ -32,7 +32,7 @@ public class UsersRq extends BaseRq {
 
     private boolean locked;
 
-    private List<UsersRolesRq> roles;
+    private UsersRolesRq roles;
 
     private boolean provision;
 

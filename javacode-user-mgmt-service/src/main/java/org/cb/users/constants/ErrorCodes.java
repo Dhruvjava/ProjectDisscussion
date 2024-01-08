@@ -46,4 +46,8 @@ public class ErrorCodes {
 
     public static final String EC_REQUIRED_USERS_ROLES = "EC_REQUIRED_USERS_ROLES";
 
+    public static final String EC_REQUIRED_USERS_ID = "EC_REQUIRED_USERS_ID";
+
+    public static final String EC_USER_NOT_FOUND = "EC_USER_NOT_FOUND";
+
 }
