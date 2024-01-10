@@ -1,0 +1,37 @@
+# Server Config
+server:
+  port: ${SERVER_PORT:7074}
+  servlet:
+    context-path: /${CONTEXT_PATH:emaildev}
+
+#App Name
+spring:
+  application:
+    name: ${APP_NAME:JAVA-CODE-NOTIFICATION-SERVICE}
+#Email Config
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_UNAME:jcodebrains@gmail.com}
+    password: ${MAIL_PASS:rupd nqjq kmqa gpph} #rupd nqjq kmqa gpph
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+mail:
+  from:
+    email: ${MAIL_FROM:jcodebrains@gmail.com}
+    name: ${MAIL_NAME:Code Brains}
+
+
+#Eureka Config
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8761/eureka}
+

@@ -11,6 +11,7 @@ import org.cb.users.constants.MessageCodes;
 import org.cb.users.datars.UsersDataRs;
 import org.cb.users.entity.Roles;
 import org.cb.users.entity.Users;
+import org.cb.users.enums.ProvisionEnums;
 import org.cb.users.helper.UsersHelper;
 import org.cb.users.mapper.UsersMapper;
 import org.cb.users.repo.RoleRepo;
@@ -22,9 +23,11 @@ import org.cb.util.Utils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 @Slf4j
@@ -72,20 +75,34 @@ public class UsersServiceImpl implements IUsersService {
         }
         try {
             List<ErrorRs> errors = UsersHelper.validateUpdateUsers(rq, messages);
-            if (Utils.isNotEmpty(errors)) {
-                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_INVALID_INPUT);
-                log.error(errorMessage);
-                throw new InvalidUsersRqException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
-            }
+//            if (Utils.isNotEmpty(errors)) {
+//                String errorMessage = messages.getErrorProperty(ErrorCodes.EC_INVALID_INPUT);
+//                log.error(errorMessage);
+//                throw new InvalidUsersRqException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
+//            }
+            Optional.of(errors).filter(Utils::isNotEmpty)
+                    .ifPresent(err -> {
+                        String errorMessage = messages.getErrorProperty(ErrorCodes.EC_INVALID_INPUT);
+                        log.error(errorMessage);
+                        throw new InvalidUsersRqException(ErrorCodes.EC_INVALID_INPUT, errorMessage, errors);
+                    });
             Users users = UsersMapper.mapToUsers(rq, mapper);
-            boolean operation = rq.isProvision();
-            if (operation) {
-                deprovisioning(users);
-            } else {
-                provisioning(users);
-            }
+            String operation = rq.getProvision();
+//            Optional.ofNullable(operation)
+//                    .filter(ProvisionEnums.PROVISION.name()::equalsIgnoreCase)
+//                    .ifPresentOrElse(
+//                            provision -> provisioning(users),
+//                            () -> deprovisioning(users));
+
+            Consumer<Users> action = ProvisionEnums.PROVISION.name().equalsIgnoreCase(operation) ? this::provisioning : this::deprovisioning;
+            action.accept(users);
+//            if (operation) {
+//                deprovisioning(users);
+//            } else {
+//                provisioning(users);
+//            }
             if (users.getId() != 0 && repo.existsById(users.getId())) {
-                users = repo.save(users);
+                repo.save(users);
             }
             UsersRs rs = UsersMapper.maptoUsers(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_UPDATED_SUCCESSFULLY);

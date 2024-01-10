@@ -34,6 +34,6 @@ public class UsersRq extends BaseRq {
 
     private UsersRolesRq roles;
 
-    private boolean provision;
+    private String provision;
 
 }
