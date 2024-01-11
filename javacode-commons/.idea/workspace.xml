@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="036833e7-f9c3-4095-ac57-9022eab7188d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/java/org/cb/Messages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/resources/bundles/application_email.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/resources/bundles/application_errors.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/resources/bundles/application_message.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/resources/templates/verify-email.ftl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../javacode-user-mgmt-service/src/main/java/org/cb/users/enums/ProvisionEnums.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../javacode-notification-service/src/main/java/org/cb/service/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/java/org/cb/service/impl/EmailServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../javacode-notification-service/src/main/java/org/cb/service/IEmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/java/org/cb/service/IEmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../javacode-user-mgmt-service/src/main/java/org/cb/users/rq/UsersRq.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javacode-user-mgmt-service/src/main/java/org/cb/users/rq/UsersRq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../javacode-user-mgmt-service/src/main/java/org/cb/users/service/impl/UsersServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javacode-user-mgmt-service/src/main/java/org/cb/users/service/impl/UsersServiceImpl.java" afterDir="false" />
+    <list default="true" id="f33847ba-8245-42d7-8c5e-75b693b21324" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cb/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/cb/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../javacode-notification-service/src/main/java/org/cb/service/impl/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../javacode-notification-service/src/main/java/org/cb/service/impl/EmailServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +24,7 @@
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 7
 }]]></component>
-  <component name="ProjectId" id="2alsfWeaTWKGIoaXyIae9FDtmAL" />
+  <component name="ProjectId" id="2arT4zkx47258oboLIuKBDCA4GE" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,12 +45,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="036833e7-f9c3-4095-ac57-9022eab7188d" name="Changes" comment="" />
-      <created>1704904605028</created>
+      <changelist id="f33847ba-8245-42d7-8c5e-75b693b21324" name="Changes" comment="" />
+      <created>1705075512637</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1704904605028</updated>
-      <workItem from="1704904606779" duration="3000" />
+      <updated>1705075512637</updated>
+      <workItem from="1705075514171" duration="15000" />
     </task>
     <servers />
   </component>
