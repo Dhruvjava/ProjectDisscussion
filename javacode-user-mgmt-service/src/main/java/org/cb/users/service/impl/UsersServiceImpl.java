@@ -6,6 +6,8 @@ import org.cb.base.data.rs.BaseDataRs;
 import org.cb.base.rs.ErrorRs;
 import org.cb.exception.InvalidUsersRqException;
 import org.cb.exception.RolesNotFoundException;
+import org.cb.rq.NotificationsRq;
+import org.cb.rs.EmailNameRs;
 import org.cb.users.constants.ErrorCodes;
 import org.cb.users.constants.MessageCodes;
 import org.cb.users.datars.UsersDataRs;
@@ -22,8 +24,8 @@ import org.cb.users.service.IUsersService;
 import org.cb.util.Utils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,9 @@ public class UsersServiceImpl implements IUsersService {
     @Autowired
     private ModelMapper mapper;
 
+    @Value("${notifications.users.email.verify}")
+    private String subject;
+
     @Override
     public BaseDataRs saveUsers(UsersRq rq) {
         if (log.isDebugEnabled()) {
@@ -59,6 +64,10 @@ public class UsersServiceImpl implements IUsersService {
             Users users = UsersMapper.mapToUsers(rq, mapper);
             provisioning(users);
             users = repo.save(users);
+            NotificationsRq notificationsRq = new NotificationsRq();
+            notificationsRq.setUsername(users.getUsername());
+            notificationsRq.setSubject(subject);
+            notificationsRq.setToEmail(new EmailNameRs(users.getEmail(), users.getFirstName() + " " + users.getLastName()));
             UsersRs userRs = UsersMapper.maptoUsers(users, mapper);
             String message = messages.getMessageProperty(MessageCodes.MC_CREATED_SUCCESSFULLY);
             return new UsersDataRs(message, userRs);

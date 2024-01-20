@@ -1,6 +1,8 @@
 package org.cb.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cb.Messages;
+import org.cb.base.rs.ErrorRs;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -69,23 +71,23 @@ public class Utils {
         return !(isEmpty(objs));
     }
 
-//    public static ErrorRs populateErrorRs(String codes, Messages message) {
-//        if (log.isDebugEnabled()) {
-//            log.debug("Executing populateErrorRs(List<String>) -> ");
-//        }
-//        try {
-//            if (isEmpty(codes)) {
-//                return null;
-//            }
-//            ErrorRs error = new ErrorRs();
-//            error.setCode(codes);
-//            error.setMessage(message.getErrorProperty(codes));
-//            return error;
-//        } catch (Exception e) {
-//            log.error("Exception in populateErrorRs(List<String>) -> {0}", e);
-//            return null;
-//        }
-//    }
+    public static ErrorRs populateErrorRs(String codes, Messages message) {
+        if (log.isDebugEnabled()) {
+            log.debug("Executing populateErrorRs(List<String>) -> ");
+        }
+        try {
+            if (isEmpty(codes)) {
+                return null;
+            }
+            ErrorRs error = new ErrorRs();
+            error.setCode(codes);
+            error.setMessage(message.getErrorMessage(codes));
+            return error;
+        } catch (Exception e) {
+            log.error("Exception in populateErrorRs(List<String>) -> {0}", e);
+            return null;
+        }
+    }
 
     public static boolean isValidEmail(final String email) {
         if (log.isDebugEnabled()) {

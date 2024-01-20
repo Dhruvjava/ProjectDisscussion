@@ -468,7 +468,7 @@
                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                                         <tr>
                                                             <td align="center">
-                                                                <a href="${verificationUrl}" class="f-fallback button" target="_blank">Click Here to Verify</a>
+                                                                <a href="${action_url}" class="f-fallback button" target="_blank">Click Here to Verify</a>
                                                             </td>
                                                         </tr>
                                                     </table>
